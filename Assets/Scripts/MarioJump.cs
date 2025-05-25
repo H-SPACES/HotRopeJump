@@ -20,6 +20,7 @@ public class MarioJump : MonoBehaviour
     {
     GameOverPanel.SetActive(false);
     GameOverPanel.SetActive(false);
+    WinnerPanel.SetActive(false);
     audioSource = GetComponent<AudioSource>();
     
 
@@ -50,11 +51,8 @@ public class MarioJump : MonoBehaviour
         FindObjectOfType<GameHUD>().AddJump();
         animator.SetBool("Down", true);
         animator.SetBool("Jump", false);
-       
-        
-        
-        
-    }
+                  
+       }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -70,19 +68,28 @@ public class MarioJump : MonoBehaviour
     }
     }
     private void OnTriggerEnter(Collider collision)
-{
-    if (collision.CompareTag("Fire"))
     {
-        GameOver();
+        if (collision.CompareTag("Fire"))
+        {
+            GameOver();
+        }
+        
     }
-}
 
-public GameObject GameOverPanel; 
+    public GameObject GameOverPanel; 
+    public GameObject WinnerPanel;
+    
 
-void GameOver()
+
+    void GameOver()
+    {
+        Time.timeScale = 0f;
+        GameOverPanel.SetActive(true);
+    }
+    public void WinnerEnd()
 {
     Time.timeScale = 0f; 
-    GameOverPanel.SetActive(true); 
+    WinnerPanel.SetActive(true);
 }
 
 }
